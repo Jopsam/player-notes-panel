@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Enums\Permissions;
 use App\Enums\Roles;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -20,8 +21,9 @@ class RoleSeeder extends Seeder
         $agent = Role::create(['name' => Roles::AGENT->value]);
         
         // We use firstOrCreate here to avoid creating duplicate permissions if the seeder is run multiple times.
-        $permission = Permission::firstOrCreate(['name' => 'create player notes']);
+        $viewPlayerNotePermission = Permission::firstOrCreate(['name' => Permissions::VIEW_PLAYER_NOTES->value]);
+        $createPlayerNotePermission = Permission::firstOrCreate(['name' => Permissions::CREATE_PLAYER_NOTES->value]);
 
-        $agent->givePermissionTo($permission);
+        $agent->givePermissionTo([$viewPlayerNotePermission, $createPlayerNotePermission]);
     }
 }

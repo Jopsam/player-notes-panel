@@ -15,7 +15,7 @@ enum Roles: string
     public function label(): string
     {
         return match ($this) {
-            self::AGENT => __('support_agent'),
+            self::AGENT => __('agent'),
             self::PLAYER => __('player'),
         };
     }
