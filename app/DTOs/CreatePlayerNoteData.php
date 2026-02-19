@@ -2,7 +2,7 @@
 
 namespace App\DTOs;
 
-final class PlayerNoteData
+final class CreatePlayerNoteData
 {
     /**
      * Creates a new instance of the PlayerNoteData class.

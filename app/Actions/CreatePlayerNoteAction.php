@@ -2,11 +2,11 @@
 
 namespace App\Actions;
 
-use App\DTOs\PlayerNoteData;
+use App\DTOs\CreatePlayerNoteData;
 use App\Models\PlayerNote;
 use App\Repositories\Contracts\PlayerNoteRepositoryInterface;
 
-final class CreatePlayerNote
+final class CreatePlayerNoteAction
 {
     /**
      * Constructs a new instance of the CreatePlayerNote class.
@@ -14,7 +14,7 @@ final class CreatePlayerNote
      * @param PlayerNoteRepositoryInterface $repository The repository to use for creating player notes.
      */
     public function __construct(
-        private readonly PlayerNoteRepositoryInterface $repository
+        private readonly PlayerNoteRepositoryInterface $playerNoteRepositoryInterface
     )
     {
     }
@@ -22,11 +22,11 @@ final class CreatePlayerNote
     /**
      * Creates a new player note.
      *
-     * @param PlayerNoteData $data The data to create the player note with.
+     * @param CreatePlayerNoteData $data The data to create the player note with.
      * @return PlayerNote The created player note.
      */
-    public function execute(PlayerNoteData $data): PlayerNote
+    public function execute(CreatePlayerNoteData $data): PlayerNote
     {
-        return $this->repository->create($data);
+        return $this->playerNoteRepositoryInterface->create($data);
     }
 }
