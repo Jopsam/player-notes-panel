@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Livewire\Volt\Volt;
+use Symfony\Component\HttpFoundation\Response;
 use Tests\TestCase;
 
 class PasswordConfirmationTest extends TestCase
@@ -19,12 +20,12 @@ class PasswordConfirmationTest extends TestCase
 
         $response
             ->assertSeeVolt('pages.auth.confirm-password')
-            ->assertStatus(200);
+            ->assertStatus(Response::HTTP_OK);
     }
 
     public function test_password_can_be_confirmed(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->agent()->create();
 
         $this->actingAs($user);
 
@@ -34,13 +35,13 @@ class PasswordConfirmationTest extends TestCase
         $component->call('confirmPassword');
 
         $component
-            ->assertRedirect('/dashboard')
+            ->assertRedirect('/players')
             ->assertHasNoErrors();
     }
 
     public function test_password_is_not_confirmed_with_invalid_password(): void
     {
-        $user = User::factory()->create();
+        $user = User::factory()->agent()->create();
 
         $this->actingAs($user);
 
